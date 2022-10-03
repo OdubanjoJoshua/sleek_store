@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-nw9h5y5n6*l2be8^hnax8fju1m8^f1g#_-c3hr=g(tcx0o5f=w
 DEBUG = False
 
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['44.204.172.38', '*']
+ALLOWED_HOSTS = ['18.207.196.119', '*']
 
 
 # Application definition
@@ -132,7 +132,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static') # This is to locate the static files from the root directory
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'home/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'sleek_store/static')]
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # This is to locate the static files from the root directory
