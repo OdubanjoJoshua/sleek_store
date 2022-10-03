@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block title %}
+    <title>Sleek Store | Get Affordable Women Outfits here</title>
+{% endblock title %}
+
+{% block content %}
+    <!-- This is the Navigation area -->
+    <header>
+        <div class="nav">
+            <input type="checkbox" id="nav-check">
+            <div class="nav-header">
+                <div class="nav-left">
+                    <img src="{% static 'images/Logo/Logo.png' %}" alt="" width="70px" height="70px">
+                    <h1>Sleek</h1>
+                </div>
+            </div>
+            <div class="nav-btn">
+            <label for="nav-check">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            </div>
+            
+            <div class="nav-links">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'index' %}">Home</a>
+                    <a href="{% url 'store' %}">Store</a>
+                    <a href="{% url 'contact' %}">Contact</a>
+                    <a href="{% url 'about' %}">About</a>
+                    <a href="{% url 'profile' %}" class="profileimg">Profile</a>
+                    <a href="{% url 'cart' %}"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <a href="{% url 'signout' %}">Logout</a>
+                {% else %}
+                    <a href="{% url 'index' %}">Home</a>
+                    <a href="{% url 'store' %}">Store</a>
+                    <a href="{% url 'contact' %}">Contact</a>
+                    <a href="{% url 'about' %}">About</a>
+                    <a href="{% url 'signin' %}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Banner-->
+        <div class="banner">
+            <div class="bg_1">
+                <img src="{% static '' %}images/Management/banner_1.png" alt="">
+            </div>
+            <div class="banner-text">
+                <h1>Stylish Outfits at their best</h1>
+                <p>A feminine store with varieties of unique, luxurious, classic, corporate, stylish and elegant outfits which will definitely make you glamour and dazzling is been brought to you at your fingertips. </p>
+                <a href="{% url 'store' %}">Explore Us</a>
+            </div>
+            <div class="bg_2">
+                <img src="{% static '' %}images/Management/banner_2.png" alt="">
+            </div>
+        </div>
+    </header> 
+
+
+    <!-- the gray line in between every section of code -->
+    <div class="intersect"></div>
+
+
+    <!-- this is the sponsor area -->
+    <div class="sponsor">
+        <div class="container">
+            <!-- This is the main sponsor text -->
+            <div class="sponsor-text">
+                <h3>Our Sponsors</h3>
+                <!-- This is the black dash under the text -->
+                <span class="dash"></span>
+            </div>
+            <!-- These are the sponsors images -->
+            <div class="sponsor-img">
+                <img class="sp-img-1" src="{% static '' %}images/Sponsor/Ibom_air.png" alt="">
+                <img class="sp-img-2" src="{% static '' %}images/Sponsor/Chanel-Symbol.png" alt="">
+                <img class="sp-img-3" src="{% static '' %}images/Sponsor/Domino.png" alt="">
+                <img class="sp-img-4" src="{% static '' %}images/Sponsor/Jumpman_logo.svg.png" alt="">
+                <img class="sp-img-5" src="{% static '' %}images/Sponsor/Yeezy.png" alt="">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- the gray line in between every section of code -->
+    <div class="intersect"></div>
+
+
+    <!-- this is for the product and about section -->
+    <section>
+        <!-- This is the feature product of the section -->
+        <div class="store">
+            <!-- feature product heading -->
+            <div class="store-head">
+                <h1>Featured Products</h1>
+                <!-- This is the black dash under the text -->
+                <span class="dash"></span>
+            </div>
+            <!-- This is the general container of the code -->
+            <div class="container">
+                <!-- This is the first row of products in feature products -->
+                <div class="products">
+                    <!-- This is a product among other products on the same row -->
+                    {% if featured %}
+                        {% for item in featured %}
+                            <div class="product p1">
+                            <!-- This is the wrapper of a single product -->
+                                <div class="wrapper">
+                                    <a href="{% url 'detail' item.id item.slug %}"><img src="{{item.pics.url}}" alt=""></a>
+                                    <!-- the gray line in between every section of code -->
+                                    <div class="line"><span></span></div>
+                                    <h3 class="product-head">{{item.title}}</h3>
+                                    <p class="price">&#8358;{{item.price|floatformat:2|intcomma}}</p>
+                                    {% if user.is_authenticated %}
+                                        <form action="{% url 'add_to_cart' %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="storeid" value="{{item.id}}">
+                                            <input type="hidden" name="qty" value="1">
+                                            <button type="submit">Add to Cart</button>
+                                        </form>
+                                    {% else %}
+                                        <a href="{% url 'signin' %}"><button type="submit">Add to Cart</button></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                </div>
+            </div> <!-- End of container -->
+        </div> <!-- End of feature products -->
+
+
+
+
+        <!-- This is the latest product of the section -->
+        <div class="store">
+            <!-- Latest product heading -->
+            <div class="store-head">
+                <h1>Latest Products</h1>
+                <!-- This is the black dash under the text -->
+                <span class="dash"></span>
+            </div>
+            <!-- This is the general container of the code -->
+            <div class="container">
+                <!-- This is the first row of products in Latest products -->
+                <div class="products">
+                    <!-- This is a product among other products on the same row -->
+                    {% if latest %}
+                        {% for item in latest %}
+                            <div class="product p1">
+                                <!-- This is the wrapper of a single product -->
+                                <div class="wrapper">
+                                    <a href="{% url 'detail' item.id item.slug %}"><img src="{{item.pics.url}}" alt=""></a>
+                                    <!-- the gray line in between every section of code -->
+                                    <div class="line"><span></span></div>
+                                    <h3 class="product-head">{{item.title}}</h3>
+                                    <p class="price">&#8358;{{item.price|floatformat:2|intcomma}}</p>
+                                    {% if user.is_authenticated %}
+                                        <form action="{% url 'add_to_cart' %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="storeid" value="{{item.id}}">
+                                            <input type="hidden" name="qty" value="1">
+                                            <button type="submit">Add to Cart</button>
+                                        </form>
+                                    {% else %}
+                                        <a href="{% url 'signin' %}"><button type="submit">Add to Cart</button></a>
+                                    {% endif %}
+                                </div>
+                            </div>    
+                        {% endfor %}
+                    {% endif %}
+                        
+                </div> <!-- End of products -->
+            </div> <!-- End of container -->
+        </div> <!-- End of latest product -->
+    </section>
+
+
+    <!-- the gray line in between every section of code -->
+    <div class="intersect"></div>
+
+
+    <article>
+        <div class="block">
+            <!-- Management area -->
+            <div class="management">
+                <!-- management image -->
+                <img src="{% static '' %}images/Management/1.jpg" alt="">
+                <!-- management title -->
+                <h1>Management Coordinator</h1>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum quaerat id velit magnam eos voluptates placeat modi doloremque repellat ratione? <br> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum similique tempora quia illum, molestias nesciunt eveniet earum soluta velit commodi blanditiis aut laudantium saepe qui porro odit dolor nisi sit cumque, ipsam optio? Laboriosam repellat eaque, dolor molestiae unde dolores aliquam possimus libero, quas qui a aut! Quae, necessitatibus quidem?</p>
+            </div>
+        </div>
+    </article>
+{% endblock content %}
+
+{% block footer %}
+{% include 'footer.html' %}     
+{% endblock footer %}
+
+{% block script %}
+        {% comment %} Alertify JS {% endcomment %}
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+        <script>
+            alertify.set('notifier','position', 'top-center');
+
+            {% for msg in messages %}
+                alertify.success('{{ msg }}');
+            {% endfor %}
+        </script>
+{% endblock script %}

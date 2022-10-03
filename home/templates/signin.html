@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Sleek Store | Login To Your Account</title>
+{% endblock title %}
+
+{% block header%}
+{% include 'header.html' %}
+{% endblock header%}
+
+{% block content %}
+
+
+<!-- This is all about the login page -->
+<section class="login-section">
+    <div class="login-wrapper">
+        <!-- Heading for the login and register -->
+        <div class="sign-in">
+            <ul>
+                <!-- Login link -->
+                <li><a href="">Login</a></li>
+                <!-- The slash inbetween -->
+                <li><i> | </i></li>
+                <!-- Register link -->
+                <li><a href="{% url 'register' %}">Register</a></li>
+            </ul>
+        </div>
+
+        <!-- login form  -->
+        <div class="log-form-group">
+            <form action="{% url 'signin' %}" method="POST">
+                {% csrf_token %}
+                <!-- Input for username -->
+                <input type="text" id="" name="username" class="form-input" placeholder="Username" required>
+                <!-- Input for Password -->
+                <input type="password" id="" name="password" class="form-input" placeholder="Password" required>
+                <button type="submit" class="log-btn">Login</button>
+                <p><span>NOTE: </span> kindly input the same username and password provided during the registration.</p>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock footer %}
+
+{% block script %}
+        {% comment %} Alertify JS {% endcomment %}
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+        <script>
+            alertify.set('notifier','position', 'top-center');
+            {% for msg in messages %}
+                {% if username == 'username' and password1 == 'password1' and password2 == 'password2' %}
+                    alertify.success('{{ msg }}');
+                {% else %}
+                    alertify.error('{{ msg }}');
+                {% endif %}
+            {% endfor %}
+        </script>
+{% endblock script %}

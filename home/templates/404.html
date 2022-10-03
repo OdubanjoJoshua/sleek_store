@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block header %}
+{% include 'header.html' %}
+{% endblock header %}
+
+
+{% block content %}
+
+    <section class="404">
+        <div class="404-container forgot-password-container">
+            <div class="error-detail forgot-password-detail">
+                <h1>Page not found</h1>
+                <p>/404</p>
+                <h3>We could not fin the above page on our servers</h3>
+                <p>Alternatively, you can visit the <a href="">Home Page</a> about this type of error</p>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
+
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock footer %}
+

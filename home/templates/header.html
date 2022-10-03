@@ -1,0 +1,39 @@
+{% load static %}
+
+<!-- This is the Navigation area -->
+<header>
+    <div class="nav">
+        <input type="checkbox" id="nav-check">
+        <div class="nav-header">
+            <div class="nav-left">
+                <img src="{% static 'images/Logo/Logo.png' %}" alt="" width="70px" height="70px">
+                <h1>Sleek</h1>
+            </div>
+        </div>
+        <div class="nav-btn">
+          <label for="nav-check">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+        </div>
+        
+        <div class="nav-links">
+            {% if user.is_authenticated %}
+                <a href="{% url 'index' %}">Home</a>
+                <a href="{% url 'store' %}">Store</a>
+                <a href="{% url 'contact' %}">Contact</a>
+                <a href="{% url 'about' %}">About</a>
+                <a href="{% url 'profile' %}" class="profileimg">Profile</a>
+                <a href="{% url 'cart' %}"><i class="fa-solid fa-cart-shopping"></i></a>
+                <a href="{% url 'signout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'index' %}">Home</a>
+                <a href="{% url 'store' %}">Store</a>
+                <a href="{% url 'contact' %}">Contact</a>
+                <a href="{% url 'about' %}">About</a>
+                <a href="{% url 'signin' %}">Login</a>
+            {% endif %}
+        </div>
+    </div>
+</header>

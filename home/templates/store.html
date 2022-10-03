@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block title %}
+    <title>Sleek Store | Stylish And Elegant Products Of Your Choice Are Available Here</title>
+{% endblock title %}
+
+{% block header %}
+{% include 'header.html' %}
+{% endblock header %}
+
+{% block content %}
+    
+    <!-- link to various outifts and accessories in this store -->
+    <main class="main-store">
+        <div class="contain">
+            <div class="link">
+                <ul>
+                    <li><a href="#gown">Gowns</a></li>
+                    <li><a href="#bag">Bags</a></li>
+                    <li><a href="#skirt">Skirts</a></li>
+                    <li><a href="#shoe">Shoes</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+
+    <!-- the product section begins -->
+    <section class="store-section">
+        <!-- This is the gown area of the section -->
+        <div class="store">
+            <!-- gown area heading -->
+            <div class="store-head">
+                <h1 id="gown">Gowns</h1>
+                <!-- This is the black dash under the text -->
+                <span class="dash"></span>
+            </div>
+            <!-- This is the general container of the section -->
+            <div class="container">
+                <!-- This is the row of products in gown area -->
+                <div class="products">
+                    {% if gown %}
+                        {% for item in gown %}
+                            <div class="product p1">
+                                <!-- This is the wrapper of a single product -->
+                                <div class="wrapper">
+                                    <a href="{% url 'detail' item.id item.slug %}"><img src="{{item.pics.url}}" alt=""></a>
+                                    <!-- the gray line in between every section of code -->
+                                    <div class="line"><span></span></div>
+                                    <h3 class="product-head">{{item.title}}</h3>
+                                    <p class="price">&#8358;{{item.price|floatformat:2|intcomma}}</p>
+                                    {% if user.is_authenticated %}
+                                    <form action="{% url 'add_to_cart' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="storeid" value="{{item.id}}">
+                                        <input type="hidden" name="qty" value="1">
+                                        <button type="submit">Add to Cart</button>
+                                    </form>
+                                    {% else %}
+                                        <a href="{% url 'signin' %}"><button type="submit">Add to Cart</button></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div> <!-- End of products -->
+            </div> <!-- End of container -->
+        </div> <!-- End of gown area -->
+
+
+        <!-- This is the bag area of the section -->
+        <div class="store">
+            <!-- bag area heading -->
+            <div class="store-head">
+                <h1 id="bag">Bags</h1>
+                <!-- This is the black dash under the text -->
+                <span class="dash"></span>
+            </div>
+            <!-- This is the general container of the code -->
+            <div class="container">
+                <!-- This is the first row of products in bag area -->
+                <div class="products">
+                    {% if bag %}
+                        {% for item in bag %}
+                            <!-- This is a product among other products on the same row -->
+                            <div class="product p1">
+                                <!-- This is the wrapper of a single product -->
+                                <div class="wrapper">
+                                    <a href="{% url 'detail' item.id item.slug %}"><img src="{{item.pics.url}}" alt=""></a>
+                                    <!-- the gray line in between every section of code -->
+                                    <div class="line"><span></span></div>
+                                    <h3 class="product-head">{{item.title}}</h3>
+                                    <p class="price">&#8358;{{item.price|floatformat:2|intcomma}}</p>
+                                    {% if user.is_authenticated %}
+                                    <form action="{% url 'add_to_cart' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="storeid" value="{{item.id}}">
+                                        <input type="hidden" name="qty" value="1">
+                                        <button type="submit">Add to Cart</button>
+                                    </form>
+                                    {% else %}
+                                        <a href="{% url 'signin' %}"><button type="submit">Add to Cart</button></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div> <!-- End of products -->
+            </div> <!-- End of container -->
+        </div> <!-- End of bag area -->
+
+
+        <!-- This is the skirt area of the section -->
+        <div class="store">
+            <!-- skirt area heading -->
+            <div class="store-head">
+                <h1 id="skirt">Skirts</h1>
+                <!-- This is the black dash under the text -->
+                <span class="dash"></span>
+            </div>
+            <!-- This is the general container of the code -->
+            <div class="container">
+                <!-- This is the first row of products in skirt area -->
+                <div class="products">
+                    {% if skirt %}
+                        {% for item in skirt %}
+                            <!-- This is a product among other products on the same row -->
+                            <div class="product p1">
+                                <!-- This is the wrapper of a single product -->
+                                <div class="wrapper">
+                                    <a href="{% url 'detail' item.id item.slug %}"><img src="{{item.pics.url}}" alt=""></a>
+                                    <!-- the gray line in between every section of code -->
+                                    <div class="line"><span></span></div>
+                                    <h3 class="product-head">{{item.title}}</h3>
+                                    <p class="price">&#8358;{{item.price|floatformat:2|intcomma}}</p>
+                                    {% if user.is_authenticated %}
+                                    <form action="{% url 'add_to_cart' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="storeid" value="{{item.id}}">
+                                        <input type="hidden" name="qty" value="1">
+                                        <button type="submit">Add to Cart</button>
+                                    </form>
+                                    {% else %}
+                                        <a href="{% url 'signin' %}"><button type="submit">Add to Cart</button></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div> <!-- End of products -->
+            </div> <!-- End of container -->
+        </div> <!-- End of skirt area -->
+
+
+        <!-- This is the shoe area of the section -->
+        <div class="store">
+            <!-- shoe area heading -->
+            <div class="store-head">
+                <h1 id="shoe">Shoes</h1>
+                <!-- This is the black dash under the text -->
+                <span class="dash"></span>
+            </div>
+            <!-- This is the general container of the code -->
+            <div class="container">
+                <!-- This is the first row of products in shoe area -->
+                <div class="products">
+                    {% if shoe %}
+                        {% for item in shoe %}
+                            <!-- This is a product among other products on the same row -->
+                            <div class="product p1">
+                                <!-- This is the wrapper of a single product -->
+                                <div class="wrapper">
+                                    <a href="{% url 'detail' item.id item.slug %}"><img src="{{item.pics.url}}" alt=""></a>
+                                    <!-- the gray line in between every section of code -->
+                                    <div class="line"><span></span></div>
+                                    <h3 class="product-head">{{item.title}}</h3>
+                                    <p class="price">&#8358;{{item.price|floatformat:2|intcomma}}</p>
+                                    {% if user.is_authenticated %}
+                                    <form action="{% url 'add_to_cart' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="storeid" value="{{item.id}}">
+                                        <input type="hidden" name="qty" value="1">
+                                        <button type="submit">Add to Cart</button>
+                                    </form>
+                                    {% else %}
+                                        <a href="{% url 'signin' %}"><button type="submit">Add to Cart</button></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div> <!-- End of products -->
+            </div> <!-- End of container -->
+        </div> <!-- End of shoe area -->
+    </section>
+{% endblock content %}
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock footer %}

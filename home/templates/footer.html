@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block footer %}
+<!-- This is the footer and Copyright area -->
+<footer>
+    <!-- Width of the footer area -->
+    <div class="box">
+        <div class="footer-top">
+            <div class="ft-col">
+                <div class="ft-col-1">
+                    <div class="sleek-content">
+                        <div class="sleek-img">
+                            <img src="{% static 'images/Logo/Logo.png' %}" alt="" width="70px" height="70px">
+                            <h1>Sleek</h1>
+                        </div>
+                        <ul>
+                            <li><span>ADDRESS:</span> No 20, Owolabi Estate, Lagos, Nigeria. </li>
+                            <li><span>PHONE:</span> (+234) 7055434671</li>
+                            <li><span>E-MAIL:</span> joshuaodubanjo13@gmail.com</li>
+                            <li><span>POSTAL CODE:</span> 100275</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ft-col-2">
+                    <div class="sleek-details">
+                        <h3>Our Company</h3>
+                        <ul class="sleek-menu">
+                            <li><a href="{% url 'about' %}">About Us</a></li>
+                            <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                            <li><a href="#">Location</a></li>
+                            <li><a href="#">Portfolio</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ft-col-3">
+                    <div class="sleek-details">
+                        <h3>Menu</h3>
+                        <ul class="sleek-menu">
+                            {% if user.is_authenticated %}
+                                <li><a href="{% url 'index' %}">Home</a></li>
+                                <li><a href="{% url 'store' %}">Store</a></li>
+                                <li><a href="{% url 'contact' %}">Contact</a></li>
+                                <li><a href="{% url 'about' %}">About</a></li>
+                                <li><a href="{% url 'profile' %}">Profile</a></li>
+                            {% else %}
+                                <li><a href="{% url 'index' %}">Home</a></li>
+                                <li><a href="{% url 'store' %}">Store</a></li>
+                                <li><a href="{% url 'contact' %}">Contact</a></li>
+                                <li><a href="{% url 'about' %}">About</a></li>
+                                <li><a href="{% url 'signin' %}">Login</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="ft-col-4">
+                    <div class="sleek-details">
+                        <h3>Follow Us</h3>
+                        <ul class="sleek-menu diff">
+                            <li class="twitter"><a href="https://twitter.com/Tms_4life" target="_blank"><p>Twitter</p> <i class="fa-brands fa-twitter"></i></a></li>
+                            <li class="instagram"><a href="https://www.instagram.com/joshuaodubanjo/" target="_blank"><p>Instagram</p> <i class="fa-brands fa-instagram"></i></a></li>
+                            <li class="facebook"><a href="https://web.facebook.com/joshua.odubanjo/" target="_blank"><p>Facebook</p> <i class="fa-brands fa-facebook"></i></a></li>
+                            <li class="github"><a href="https://github.com/OdubanjoJoshua" target="_blank"><p>Github</p> <i class="fa-brands fa-github"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2022 Sleek Store designed by <a href="https://www.linkedin.com/in/joshua-odubanjo-78133623a/" target="_blank">Joshua Odubanjo</a></p>
+        </div>
+    </div>
+</footer><!-- End of the footer and Copyright area -->
+{% endblock footer %}

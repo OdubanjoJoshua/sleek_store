@@ -1,0 +1,66 @@
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install python3-venv -y
+sudo apt-get install git
+python3 -m venv env
+source env/bin/activate
+git clone https://odubanjojoshua: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@github.com/odubanjojoshua/sleek_store.git
+cd sleek_store
+pip3 install wheel
+pip3 install -r requirements.txt
+pip3 install gunicorn 
+pip3 install xlrd
+sudo apt-get install -y nginx
+ls sleek_store/ #wsgi file must be in here 
+gunicorn --bind 0.0.0.0:8000 sleek_store.wsgi:application #to check if there is any problem
+sudo apt-get install -y supervisor
+cd /etc/supervisor/conf.d/
+sudo touch gunicorn.conf
+sudo nano gunicorn.conf
+-----------------------------
+[program:gunicorn]
+directory=/home/ubuntu/sleek_store
+command=/home/ubuntu/env/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/sleek_store/app.sock sleek_store.wsgi:application
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/gunicorn/gunicorn.err.log
+stdout_logfile=/var/log/gunicorn/gunicorn.out.log
+
+[group:guni]
+programs:gunicorn
+-----------------------------
+
+sudo mkdir /var/log/gunicorn
+sudo supervisorctl reread
+sudo supervisorctl update
+cd /etc/nginx
+sudo nano nginx.conf #change the "server_names_hash_bucket_size 64;" to "server_names_hash_bucket_size 128;"
+cd
+cd /etc/nginx/sites-available/
+sudo touch django.conf
+sudo nano django.conf
+-----------------------------
+server {
+	listen 80;
+	server_name 18.133.159.168;
+	
+	location / {
+		include proxy_params;
+		proxy_pass http://unix:/home/ubuntu/sleek_store/app.sock;
+	}
+	location /static {
+		autoindex on;
+		alias /home/ubuntu/sleek_store/home/static/;  
+	}
+    location /media/ {
+        autoindex on;
+        alias /home/ubuntu/sleek_store/media/;
+    }
+}
+-----------------------------
+sudo ln django.conf /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo service nginx restart
+deactivate
+sudo supervisorctl reload
+sudo systemctl reload nginx

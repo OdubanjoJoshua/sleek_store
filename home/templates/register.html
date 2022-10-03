@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Sleek Store | Create An Account With Us</title>
+{% endblock title %}
+
+{% block header %}
+{% include 'header.html' %}
+{% endblock header %}
+
+{% block content %}
+
+    <!-- This is all about the login page -->
+    <section class="register-section">
+        <div class="register-wrapper">
+            <!-- Heading for the login and register -->
+            <div class="sign-in">
+                <ul>
+                    <!-- Login link -->
+                    <li><a href="{% url 'signin' %}">Login</a><span></span></li>
+                    <!-- The slash inbetween -->
+                    <li><i> | </i></li>
+                    <!-- Register link -->
+                    <li><a href="">Register<span></span></a></li>
+                </ul>
+                
+            </div>
+            
+            <!-- login form  -->
+            <div class="reg-form-group">
+                <form action="{% url 'register' %}" method="POST">
+                    {% csrf_token %}
+                    <!-- Input for firstname -->
+                    <input type="text" id="" name="first_name" class="form-input" placeholder="First Name" required>
+                    <!-- Input for Lastname -->
+                    <input type="text" id="" name="last_name" class="form-input" placeholder="Last Name" required>
+                    <!-- Input for username --> 
+                    <input type="text" id="" name="username" class="form-input" placeholder="Username" >
+                    <!-- Input for Email -->
+                    <input type="email" id="" name="email" class="form-input" placeholder="E-mail" >
+                    <!-- Input for Create Password -->
+                    <input type="password" id="" name="password1" class="form-input" placeholder="Create Password" required>
+                    <!-- Input for Confirm Password -->
+                    <input type="password" id="" name="password2" class="form-input" placeholder="Confirm Password" required>
+                    <button type="submit" class="log-btn">Register</button>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock footer %}
+
+{% block script %}
+        {% comment %} Alertify JS {% endcomment %}
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+        <script>
+            alertify.set('notifier','position', 'top-center');
+            var delay = alertify.get('notifier','delay');
+            alertify.set('notifier','delay', 10);
+            {% for msg in messages %}
+                {% if username == 'username' and password1 == 'password1' and password2 == 'password2' %}
+                    alertify.success('{{ msg }}');
+                {% else %}
+                    alertify.error('{{ msg }}');
+                {% endif %}
+            {% endfor %}
+        </script>
+{% endblock script %}

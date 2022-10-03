@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block header %}
+{% include 'header.html' %}
+{% endblock header %}
+
+
+{% block content %}
+
+    <section class="main-callback">
+        <div class="callback-container">
+            <div class="callback-greeting">
+                <h1>Thank You So Much For Patronizing Us</h1>
+                <p><a href="{% url 'index' %}">Continue Shopping</a></p>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
+
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock footer %}
+
+

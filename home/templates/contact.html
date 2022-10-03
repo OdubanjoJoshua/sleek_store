@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Sleek Store | Contact Us For Further Information</title>
+{% endblock title %}
+
+{% block header %}
+{% include 'header.html' %}
+{% endblock header %}
+    
+{% block content %}
+    <!-- This is the content area of the contact page-->
+    <section class="contact">
+        <!-- This is the wrapper for the section content -->
+        <div class="contact-wrapper">
+            <!-- The form section for the contact -->
+            <div class="contact-left">
+                <div class="contact-container">
+                    <!-- The form for the contact -->
+                    <h3 class="contact-form-title">Tells Us Your Message</h3>
+                    <div class="contact-form">
+                        <form action="{% url 'contact' %}" method="post"> 
+                            {% csrf_token %}
+                            {{contact.as_p}}
+                            {% comment %} <div class="form-group">
+                                <label for="">Your Name<span class="required">*</span></label>
+                                <input type="text" name="full_name" id="customerName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Your Email<span class="required">*</span></label>
+                                <input type="email" name="email" id="customerEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Your Message<span class="required">*</span></label>
+                                <textarea name="message" id="contactMessage"></textarea>
+                            </div> {% endcomment %}
+                            <div class="form-group">
+                                <button type="submit" class="submit" value="submit" id="submit" name="submit">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div><!-- end of contact left -->
+        
+        
+            <!-- The info about the contact -->
+            <div class="contact-right">
+                <div class="container">
+                    <!-- The direct wrapper for the contents in contact-right -->
+                    <div class="contact-box">
+                        <h3>Contact Us</h3>
+                        <p>We also have a physical store. That is what we started with before opening our online store making it easier for people to get the products they desire. But if we are closer to your location, you can decide to drop by and get your lovely accessories and outfits.</p>
+                        <div class="single-contact-block">
+                            <h4><i class="fa fa-fax"></i> Address</h4>
+                            <p>No 20, Owolabi Estate, Lagos, Nigeria.</p>
+                        </div>
+                        <div class="single-contact-block">
+                            <h4><i class="fa fa-phone"></i> Phone</h4>
+                            <p>Mobile: (+234) 904-572-8937</p>
+                            <p>Hotline: 0700-110-0110</p>
+                        </div>
+                        <div class="single-contact-block">
+                            <h4><i class="fa-solid fa-envelope"></i> Email</h4>
+                            <p>JohnDoe@youremail.com</p>
+                            <p>support@sleek.company</p>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End of the contact info -->
+        </div> <!-- This is the end of the wrapper -->
+    </section>
+
+    <script>
+
+    </script>
+
+{% endblock content %}
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock footer %}
+
+{% block script %}
+        {% comment %} Alertify JS {% endcomment %}
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+        <script>
+            alertify.set('notifier','position', 'top-center');
+            var delay = alertify.get('notifier','delay');
+            alertify.set('notifier','delay', 10);
+            {% for msg in messages %}
+                {% if contact %}
+                    alertify.success('{{ msg }}');
+                {% else %}
+                    alertify.error('{{ msg }}');
+                {% endif %}
+            {% endfor %}
+        </script>
+{% endblock script %}

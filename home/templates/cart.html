@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block title %}
+    <title>Sleek Store | Your Orders Which You Have Placed Are Ready</title>
+{% endblock title %}
+
+{% block header %}
+{% include 'header.html' %}
+{% endblock header %}
+
+
+{% block content %}
+
+    <!-- This is the main cart area -->
+    <section class="cart-section">
+        <!-- The container of our cart content -->
+        <div class="cart-wrapper">
+            <div class="cart-page">
+                <div class="cart-content cart-p-title">
+                    <div class="row r1">
+                        <h2>Products</h2>
+                    </div>
+                    <div class="row r2">
+                        <h2>Size</h2>
+                    </div>
+                    <div class="row r3">
+                        <h2>Quantity</h2>
+                    </div>
+                    <div class="row r3">
+                        <h2>Sub-Total</h2>
+                    </div>
+                </div>
+
+
+                {% if cart %}
+                    {% for item in cart %}
+                        <div class="cart-content cart-body">
+                            <div class="row r1">
+                                <div class="cart-info">
+                                    <a href=""><img src="{{item.product.pics.url}}" alt=""></a>
+                                    <div>
+                                        <p>{{item.product.title}}</p>
+                                        <form action="{% url 'delete' %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="del_id" value="{{item.id}}">
+                                            <a href=""><button type="submit">Remove</button></a>
+                                        </form>  
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row r2">
+                                <div class="cart-inside">
+                                    <h3>{{item.size}}</h3>
+                                </div>
+                            </div>
+                            <div class="row r3">
+                                <div class="cart-inside">
+                                    <form action="{% url 'update' %}" method="POST">
+                                    {% csrf_token %}
+                                        <td class="cart-qty">
+                                            <input type="number" value="{{item.qty}}" min="1" name="quanty">
+                                            <input type="hidden" name="quan_id" value="{{item.id}}">
+                                            <button type="submit">✔</button>
+                                        </td>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="row r4">
+                                <div class="cart-inside">
+                                    <h3>&#8358;{{item.amount}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="cart-price">
+                <div class="cart-price-t">
+                    <div class="total-price">
+                        <div class="tp-left">
+                            <h3>Sub-total</h3>
+                        </div>
+                        <div class="tp-right">
+                            <h3>&#8358; {{subtotal|floatformat:2|intcomma}}</h3>
+                        </div>
+                    </div>
+    
+                    <div class="total-price">
+                        <div class="tp-left">
+                            <h3>VAT</h3>
+                        </div>
+                        <div class="tp-right">
+                            <h3>&#8358; {{vat|floatformat:2|intcomma}}</h3>
+                        </div>
+                    </div>
+    
+                    <div class="total-price">
+                        <div class="tp-left">
+                            <h3>Total</h3>
+                        </div>
+                        <div class="tp-right">
+                            <h3>&#8358; {{total|floatformat:2|intcomma}}</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="cart-che">
+                        <a href="{% url 'checkout' %}"><button> <p>Checkout</p> <i class="fa-solid fa-cart-shopping"></i></button></a>
+                    </div>
+                </div>
+            </div>
+            <!-- <a href="{% url 'callback' %}"></a> -->
+        </div>
+    </section>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% block content %}
+
+    <!-- This is the main cart area -->
+    <section class="cart-section">
+        <!-- The container of our cart content -->
+        <div class="cart-wrapper">
+            <div class="cart-page">
+                <!-- The table which is like a template our cart structure will follow -->
+                <table>
+                    <!-- This is the row of the cart heading -->
+                    <tr class="cart-head-row">
+                        <th>Products</th>
+                        <th>Size</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+                    </tr>
+                    <!-- This is the row for the body -->
+                    {% if cart %}
+                        {% for item in cart %}
+                            <tr>
+                                <td class="cart-detail">
+                                    <div class="cart-info">
+                                        <a href=""><img src="{{item.product.pics.url}}" alt=""></a>
+                                        <div>
+                                            <p>{{item.product.title}}</p>
+                                            <small>&#8358;{{item.price|floatformat:2|intcomma}}</small>
+                                            <br>
+                                            <form action="{% url 'delete' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="del_id" value="{{item.id}}">
+                                                <button type="submit">Remove</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>   
+                                <td class="cart-size">{{item.size}}</td>
+                               <form action="{% url 'update' %}" method="POST">
+                                {% csrf_token %}
+                                    <td class="cart-qty">
+                                        <input type="number" value="{{item.qty}}" min="1" name="quanty">
+                                        <input type="hidden" name="quan_id" value="{{item.id}}">
+                                        <button type="submit">✔</button>
+                                    </td>
+                               </form>
+                                <td class="cash">&#8358;{{item.amount}}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </table>
+
+                <div class="cart-price">
+                    <div class="total-price">
+                        <table>
+                            <tr>
+                                <td>Sub-total</td>
+                                <td>&#8358; {{subtotal|floatformat:2|intcomma}}</td>
+                            </tr>
+                            <tr>
+                                <td>VAT</td>
+                                <td>&#8358; {{vat|floatformat:2|intcomma}}</td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td>&#8358; {{total|floatformat:2|intcomma}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="checkout">
+                        <a href="{% url 'checkout' %}"><button><i class="fa-solid fa-cart-shopping"></i> <p>Checkout</p> </button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %} {% endcomment %}
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock footer %}
+
+{% block script %}
+        {% comment %} Alertify JS {% endcomment %}
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+        <script>
+            alertify.set('notifier','position', 'top-center');
+            {% for msg in messages %}
+                alertify.success('{{ msg }}');
+            {% endfor %}
+        </script>
+{% endblock script %}

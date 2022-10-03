@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Sleek Store | About Us And Our Team</title>
+{% endblock title %}
+
+{% block header %}
+{% include 'header.html' %}
+{% endblock header %}
+
+{% block content %}
+<!-- This is the section of the main employees in the Office -->
+<!-- This is the section of the main employees in the Office -->
+<main class="about-main">
+    <!-- This is the general container -->
+    <div class="about-container">
+        <!-- This is the content for the CEO of sleek stores -->
+        <!-- The container the image(left) and the text(right) part of this section -->
+        <div class="main-profile">
+            <div class="profile-head">
+                <!-- Heading for the main profile -->
+                <h1>About Us</h1>
+                <!-- This is the black dash under the text -->
+                <span class="dash"></span>
+            </div>
+            <div class="profile">
+                <!-- The image part -->
+                <div class="profile-left">
+                    <img src="{% static 'images/Management/2.jpg' %}" alt="">
+                    <div class="profile-text">
+                        <h3>CEO / Founder</h3>
+                        <p>Thomas Shelby</p>
+                    </div>
+                </div>
+                <!-- The text part -->
+                <div class="profile-right">
+                    <div class="profile-story">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam voluptatum unde fugiat accusamus earum, cumque totam, labore officia laudantium sit alias exercitationem temporibus perferendis veritatis. Officia sed suscipit hic laboriosam, ad labore aperiam magni, totam nihil tenetur eos odio sint nulla a iure! Facilis soluta ex repellat dolorum, nemo ea.</p>
+                    </div>
+                </div>
+                </div>
+        </div>
+
+
+        <!-- This is for the sub-team of the Store -->
+        <div class="team">
+                <!-- Heading for the Team -->
+                <div class="team-head">
+                    <h1>Our Team</h1>
+                    <!-- This is the black dash under the text -->
+                    <span class="dash"></span>
+                </div>
+            <div class="individuals">
+                <!-- Marketing Director -->
+                <div class="person one">
+                    <img src="{% static 'images/management/3.jpg' %}" alt="">
+                    <div class="position">
+                        <h3>Liza Summer</h3>
+                        <p>Marketing Director</p>
+                    </div>
+                </div>
+                <!-- lead software developer -->
+                <div class="person two">
+                    <img src="{% static 'images/management/4.jpg' %}" alt="">
+                    <div class="position">
+                        <h3>Andrea Picad</h3>
+                        <p>Lead Software Developer</p>
+                    </div>
+                </div>
+                <!-- Customer Service -->
+                <div class="person three">
+                    <img src="{% static 'images/management/5.jpg' %}" alt="">
+                    <div class="position">
+                        <h3>Jessica Lopez</h3>
+                        <p>Customer Service</p>
+                    </div>
+                </div>
+                <!-- Finance Administrator -->
+                <div class="person four">
+                    <img src="{% static 'images/management/6.jpg' %}" alt="">
+                    <div class="position">
+                        <h3>Amanda Nunez</h3>
+                        <p>Finance Administrator</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!-- the gray line in between every section of code -->
+<div class="intersect"></div>
+
+
+<!-- this is the sponsor area -->
+<div class="sponsor">
+    <div class="container">
+        <!-- This is the main sponsor text -->
+        <div class="sponsor-text">
+            <h3>Our Sponsors</h3>
+            <!-- This is the black dash under the text -->
+            <span class="dash"></span>
+        </div>
+        <!-- These are the sponsors images -->
+        <div class="sponsor-img">
+            <img class="sp-img-1" src="{% static 'images/Sponsor/Ibom_air.png' %}" alt="">
+            <img class="sp-img-2" src="{% static 'images/Sponsor/Chanel-Symbol.png' %}" alt="">
+            <img class="sp-img-3" src="{% static 'images/Sponsor/Domino.png' %}" alt="">
+            <img class="sp-img-4" src="{% static 'images/Sponsor/Jumpman_logo.svg.png' %}" alt="">
+            <img class="sp-img-5" src="{% static 'images/Sponsor/Yeezy.png' %}" alt="">
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock footer %}

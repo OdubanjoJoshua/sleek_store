@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <!-- <title>Sleek Store | User Profile - {{user.username}}</title> -->
+{% endblock title %}
+
+{% block header %}
+{% include 'header.html' %}
+{% endblock header %}
+
+{% block content %}
+    <section class="profile">
+        <div class="profile-container">
+            <div class="profile-data">
+                <div class="profile-content">
+                    <h1>Welcome {{profile.username}}</h1>
+                    <div class="profile-row">
+                        <div class="p-left">
+                            <h1>First Name:</h1>
+                        </div>
+                        <div class="p-right">
+                            <h1>{{profile.first_name}}</h1>
+                        </div>
+                    </div>
+    
+                    <div class="profile-row">
+                        <div class="p-left">
+                            <h1>Last Name:</h1>
+                        </div>
+                        <div class="p-right">
+                            <h1>{{profile.last_name}}</h1>
+                        </div>
+                    </div>
+    
+                    <div class="profile-row">
+                        <div class="p-left">
+                            <h1>Username:</h1>
+                        </div>
+                        <div class="p-right">
+                            <h1>{{profile.username}}</h1>
+                        </div>
+                    </div>
+
+                    <div class="profile-row">
+                        <div class="p-left">
+                            <h1>Email:</h1>
+                        </div>
+                        <div class="p-right">
+                            <h1>{{profile.email}}</h1>
+                        </div>
+                    </div>
+                </div>    
+                {% comment %} <a href="{% url 'profile_update' %}" class="update-btn">Update Profile</a> {% endcomment %}
+                <a href="{% url 'profile_update' %}"><button class="update-btn">Edit Profile</button></a>
+            </div>
+        </div>
+    </section>
+    
+{% endblock content %}
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock footer %}
+
+
+{% block script %}
+        {% comment %} Alertify JS {% endcomment %}
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+        <script>
+            alertify.set('notifier','position', 'top-center');
+            var delay = alertify.get('notifier','delay');
+            alertify.set('notifier','delay', 10);
+            {% for msg in messages %}
+                {% if update.is_valid %}
+                    alertify.error('{{ msg }}');
+                {% else %}
+                    alertify.success('{{ msg }}');
+                {% endif %}
+            {% endfor %}
+        </script>
+{% endblock script %}
+

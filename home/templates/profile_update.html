@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Sleek Store | User Profile | Edit And Modify Your Account Details</title>
+{% endblock title %}
+
+{% block header %}
+{% include 'header.html' %}
+{% endblock header %}
+
+{% block content %}
+    <!-- profile container -->
+    <div class="user_profile">
+        <div class="user_profile-container">
+            <!-- This splits the profile_photo for the profile_detail -->
+            <div class="profile-seperator">
+                <!-- Display Picture -->
+                <form method=post>
+                    {% csrf_token %}
+                    <div class="profile-photo">
+                        {% comment %} <img src="{{user.profile.avatar.url}}" alt=""> {% endcomment %}
+                        {% comment %} <input type="file" name="avatar" accept="image/png, image/jpeg"> {% endcomment %}
+                    </div>
+                </form>
+                <div class="user_profile detail">
+                    <!-- Welcome the user -->
+                    <div class="profile-greeting">
+                        {% comment %} <h1>Welcome {{user.username}}</h1> {% endcomment %}
+                    </div>
+                    <!-- User details -->
+                    <div class="profile-detail">
+                        <div class="detail-placeholder">
+                            <h3>User Details</h3>
+                        </div>
+                        <form action="{% url 'profile_update' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                            {{update}}
+                            {% comment %} {{update.as_table|add_class:"form-input"}} {% endcomment %}
+                            {% comment %} <input type="text" name="{{profile.first_name}}" class="form-input" placeholder="{{user.first_name}}">
+                            <input type="text" name="{{profile.last_name}}" class="form-input" placeholder="{{user.last_name}}">
+                            <input type="text" name="{{profile.username}}" class="form-input" placeholder="{{user.username}}">
+                            <input type="email" name="{{profile.email}}" class="form-input" placeholder="{{user.email}}"> {% endcomment %}
+                            {% comment %} <textarea name="bio" id="" cols="30" rows="10" class="form-input" placeholder="Write About Yourself Here...">{{user.profile.bio}}</textarea> {% endcomment %}
+                            <div class="save-discard">
+                                <ul>
+                                    <li><button type="submit" class="save">Save</button></li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock footer %}
+
+
+{% block script %}
+        {% comment %} Alertify JS {% endcomment %}
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+        <script>
+            alertify.set('notifier','position', 'top-center');
+            {% for msg in messages %}
+                {% if update.is_valid %}
+                    alertify.success('{{ msg }}');
+                {% else %}
+                    alertify.error('{{ msg }}');
+                {% endif %}
+            {% endfor %}
+        </script>
+{% endblock script %}
