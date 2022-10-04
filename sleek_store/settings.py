@@ -28,8 +28,7 @@ DEBUG = False
 # DEBUG = True
 
 
-# ALLOWED_HOSTS = ['54.147.128.20','*']
-ALLOWED_HOSTS = ['']
+ALLOWED_HOSTS = ['54.147.128.20','*']
 # ALLOWED_HOSTS = []
 
 
